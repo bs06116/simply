@@ -1,0 +1,77 @@
+@charset "utf-8";
+.cs_account_main .col-lg-8 {
+    width: 66.6667%;
+}
+.white_bg {
+    background: #fff none repeat scroll 0 0;
+}
+.m_b_20{
+  margin: 0 0 20px;
+}
+.full_padding_header{
+	padding:15px
+}
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+	margin: 0 0 20px;
+	position:relative;
+}
+legend {
+    border: medium none;
+    display: block;
+    margin: 0 11px 10px;
+    width: auto;
+}
+.btn.btn-icon {
+    font-size: 14px;
+    padding: 2px 7px;
+}
+form#wizard-validation-form .content {
+    background: #fff none repeat scroll 0 0;
+    min-height: 27em;
+}
+form#wizard-validation-form section {
+    width: 100%;
+}
+.alert.custom-error.alert-danger p {
+    color: #d73925;
+    font-size: 12px;
+    margin: 0;
+}
+#error_msg.alert.custom-error.alert-danger,
+.alert.custom-error.alert-danger#error_2_msg,
+.alert.custom-error.alert-danger {
+    background-color: #fff7f7 !important;
+	color:#dd4b39 !important;
+}
+#success_msg.alert.custom-error.alert-success,
+.alert.custom-error.alert-success {
+    background-color: #e6ffe6 !important;
+    color: #00a65a !important;
+}
+.field_error {
+    color: #ea6c6c;
+    display: block;
+    font-size: 12px;
+    line-height: 1;
+}
+.add_min_btn .btn {
+    padding: 2px 7px;
+}
+.add_min_btn {
+    float: right;
+    margin: -20px 0 -6px;
+}
+.p-t-0{
+	padding-top:0;
+	}
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+  .add_min_btn {
+    margin: -24px 0 -6px;
+}
+.customer_append .add_min_btn,
+.address_append .add_min_btn {
+    margin-top: -20px;
+}
+}
