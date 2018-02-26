@@ -165,7 +165,7 @@ window.addEventListener('popstate', function () {
 
       <!-- logo for regular state and mobile devices -->
 
-      <span class="logo-lg"><b>Simply</b>Precast</span>
+      <span class="logo-lg"><img src="<?php echo base_url()?>/img/simply_logo.png" /></span>
 
     </a>
 
