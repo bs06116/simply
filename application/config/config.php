@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/certificates/';
+$config['base_url']	= 'http://localhost/simply/';
 $config['login_path'] = 'login/';
 $config['dashboard_path'] = 'dashboard/';
 $config['user_path'] = 'user/';
