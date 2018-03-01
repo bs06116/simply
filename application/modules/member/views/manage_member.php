@@ -24,7 +24,7 @@ $total=count($all_user);
                 <div class="box-body">
                 <div class="row">
                 <div class="col-lg-12 text-right form-group">
-                <a class="btn btn-primary pad" href="<?php echo base_url(); ?><?php echo $this->config->item('member_path'); ?>add_member"><i class="fa fa-plus" aria-hidden="true"></i>Add New</a>
+                <a class="btn btn-primary pad mybtn_primary" href="<?php echo base_url(); ?><?php echo $this->config->item('member_path'); ?>add_member"><i class="fa fa-plus" aria-hidden="true"></i>Add New</a>
                 </div>
                 </div>
                   <table id="data_table" class="table table-bordered table-striped icon_space">

@@ -25,7 +25,7 @@ class Forgot_model extends CI_Model
 
 	public function forgot_password($email,$newpassword)
 	{	
-		echo $newpassword;//exit;
+
 		
 		$this->db->where("email",$email);
 	    $query=$this->db->get("users");

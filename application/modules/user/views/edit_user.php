@@ -224,7 +224,7 @@ $this->load->view('commons/header');
         </div>	
 			  <div class="row">
               	<div class="col-lg-12 text-right form-group">
-                	<input type="submit"  class="btn btn-info" id="update_customer" value="Submit" />
+                	<input type="submit"  class="btn btn-info mybtn_primary" id="update_customer" value="Submit" />
                 </div>
               </div>
               

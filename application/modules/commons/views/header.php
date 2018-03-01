@@ -165,14 +165,16 @@ window.addEventListener('popstate', function () {
 
       <!-- logo for regular state and mobile devices -->
 
-      <span class="logo-lg"><b>Simply</b>Precast</span>
+      <span class="logo-lg"><img src="<?php echo base_url()?>img/simply_logo.png" /></span>
 
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
-
     <nav class="navbar navbar-static-top">
-
+       <span style="color: white;
+    font-size: 18px;
+    font-weight: bold;   padding: 14px 0px 0px 14px;
+    float: left;"> Simply Certificates - Trusted Quality & Service</span>
       
     <!-- ===========s-menu=3/9/2017================== -->
       <div class="s-menu-btn">
@@ -197,8 +199,16 @@ window.addEventListener('popstate', function () {
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
 
               <!-- The user image in the navbar--> 
+<?php
+$result=$this->commons_model->single_record('users','userid',$this->session->userdata('user_id'));
 
-              <img src="<?php echo base_url(); ?>application/modules/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> 
+if($result->image_name){
+$image_name=$result->image_name;
+}else{
+    $image_name="no_img.jpg";
+}
+?>
+              <img src="<?php echo base_url(); ?>img/<?php echo $image_name;?>" class="user-image" alt="User Image">
 
               <!-- hidden-xs hides the username on small devices so only the image appears. --> 
 
@@ -208,7 +218,7 @@ window.addEventListener('popstate', function () {
 
                 <!-- The user image in the menu -->
 
-                <li class="user-header"> <img src="<?php echo base_url(); ?>application/modules/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <li class="user-header"> <img src="<?php echo base_url(); ?>img/<?php echo $image_name;?>" class="img-circle" alt="User Image">
 
                   <p>  <?php echo $this->session->userdata('username') ?> </p>
 
@@ -218,9 +228,9 @@ window.addEventListener('popstate', function () {
 
                 <li class="user-footer">
 
-                  <div class="pull-left"> <a href="<?php echo base_url(); ?><?php echo $this->config->item('dashboard_path'); ?>change_password" class="btn btn-default btn-flat">Change Password</a> </div>
+                  <div class="pull-left"> <a href="<?php echo base_url(); ?><?php echo $this->config->item('dashboard_path'); ?>change_password" class="btn btn-default btn-flat mybtn_primary">Change Password</a> </div>
 
-                  <div class="pull-right"> <a href="<?php echo base_url(); ?>logout" class="btn btn-default btn-flat">Sign out</a> </div>
+                  <div class="pull-right"> <a href="<?php echo base_url(); ?>logout" class="btn btn-default btn-flat mybtn_primary">Sign out</a> </div>
 
                 </li>
 
@@ -265,7 +275,7 @@ window.addEventListener('popstate', function () {
 
         <div class="pull-left image">
 
-          <img src="<?php echo base_url(); ?>application/modules/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url(); ?>img/<?php echo $image_name;?>" class="img-circle" alt="User Image">
 
         </div>
 

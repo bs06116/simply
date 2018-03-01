@@ -62,15 +62,16 @@ class Forgotpassword extends CI_Controller {
 		   $main_url=base_url();
 			$email = $this->input->post('email');
             $result_email=$this->commons_model->single_record('users','email',$email);
+            $newpassword=rand(1111111,9999999);
             if($result_email){
-                $newpassword=rand(1111111,9999999);
+
                 $user_id=$this->forgot_model->forgot_password($email,$newpassword);
 
                 $message_div='<div><b>YOUR PASSWORD HAS BEEN CHANGED</b> </br>
                     <p>This email confirms that your password has been changed.</p>
                     <p>Username: '.$result_email->username.'</p>
                     <p>Password: '.$newpassword.'</p>
-                    <p>You can login by following this link: '.$main_url.'/certificates </p>
+                    <p>You can login by following this link: '.$main_url.'scertificates </p>
                     <p>If you have any questions or encounter any problems logging in then please contact us.</p>
                     <p>Kind regards,</p>
                     <p>technical@simplyprecast.co.uk </p>
@@ -81,6 +82,7 @@ class Forgotpassword extends CI_Controller {
                 $this->email->to($email);
                 $this->email->subject('Change Password');
                 $this->email->message($message_div);
+                $this->email->set_mailtype("html");
                 if($this->email->send())
                 {
                     $data['msgs']="A new password has been sent to your e-mail address.";

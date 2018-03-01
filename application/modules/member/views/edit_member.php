@@ -62,14 +62,30 @@ $this->load->view('commons/header');
                          <input type="text" value="<?php  if(isset($original_form_values) && $original_form_values == 1){echo $user_data->designation; }?>"  name="designation" id="designation" class="form-control" placeholder="Password">
                        <div class="text-red"><?php echo form_error('designation'); ?></div>
                         </div>
-                      
-                       
-                        
-                        
+
+
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="section">Image 160 * 160</label>
+                                      <input onchange="readURL(this);" id="image"  type="file" value="<?php echo set_value('image'); ?>"  name="image">
+
+                                      <div class="text-red"><?php echo form_error('image'); ?></div>
+
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="image-holder">
+                              <img class="thumb-image" style="width: 160px; height: 160px" src="<?php echo base_url()?>img/<?php echo $user_data->image_name; ?>" >
+
+                          </div>
+                          <input type="hidden"  value="<?php echo $user_data->image_name; ?>" name="edit_image_name" />
+
+
                       </div><!-- /.box-body -->
             <input type="hidden" value="<?=$user_id?>" name="user_id" />
                       <div class="box-footer">
-                        <button type="submit" id="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" id="submit" class="btn btn-primary mybtn_primary">Update</button>
                       </div>
                     </form>
                   </div>
@@ -79,5 +95,23 @@ $this->load->view('commons/header');
     </section>
     <!-- /.content -->
     </div>
+<script type="text/javascript">
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.thumb-image')
+                    .attr('src', e.target.result)
+                    .width(160)
+                    .height(160);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
  <!-- /.content-wrapper -->
 <?php $this->load->view('commons/footer'); ?>

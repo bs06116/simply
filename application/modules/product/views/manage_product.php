@@ -19,7 +19,7 @@ $this->load->view('commons/header');
       	<section class="content m_b_20 white_bg box">
       	<div class="row">
         	<div class="col-lg-12 form-group">
-            	<a href="#" class="btn btn-primary pull-right pad" data-toggle="modal" data-target="#add_product_modal"><i class="fa fa-fw fa-plus"></i> Add New</a>
+            	<a href="#" class="btn btn-primary pull-right pad mybtn_primary" data-toggle="modal" data-target="#add_product_modal"><i class="fa fa-fw fa-plus"></i> Add New</a>
             </div>
         </div>
         <div class="row">
@@ -154,9 +154,9 @@ $this->load->view('commons/header');
                
               </div>
               <div class="modal-footer">
-              <a href="#" id="submit_type2" class="btn btn-primary">Save</a>
+              <a href="#" id="submit_type2" class="btn btn-primary mybtn_primary">Save</a>
               
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default mybtn_primary" data-dismiss="modal">Close</button>
               </div>
             </div>
         
@@ -259,9 +259,9 @@ $this->load->view('commons/header');
               
               <div class="modal-footer">
                
-              <a href="#" id="update_product" class="btn btn-primary">Save</a>
+              <a href="#" id="update_product" class="btn btn-primary mybtn_primary">Save</a>
               
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default mybtn_primary" data-dismiss="modal">Close</button>
               </div>
             </div>
         

@@ -26,14 +26,14 @@ $total=count($all_task_project);
                 
                 <div class="col-lg-12  form-group">
                 <div class="col-lg-9 rem_padd">
-                	<a class="btn btn-primary pad" href="<?php echo base_url().$this->config->item('task_path').'manage_task'?>">All Tasks</a> &nbsp;
-                    <a class="btn btn-primary pad" id="hold_task" href="#">Hold Tasks</a> &nbsp;
-                    <a class="btn btn-primary pad" id="in_prog_task" href="#">In Progress Tasks</a> &nbsp; 
-                    <a class="btn btn-primary pad" id="com_task">Complete Tasks</a> &nbsp;
-                    <a class="btn btn-primary pad" id="my_task">My Tasks</a> 
+                	<a class="btn btn-primary pad mybtn_primary" href="<?php echo base_url().$this->config->item('task_path').'manage_task'?>">All Tasks</a> &nbsp;
+                    <a class="btn btn-primary pad mybtn_primary" id="hold_task" href="#">Hold Tasks</a> &nbsp;
+                    <a class="btn btn-primary pad mybtn_primary" id="in_prog_task" href="#">In Progress Tasks</a> &nbsp;
+                    <a class="btn btn-primary pad mybtn_primary" id="com_task">Complete Tasks</a> &nbsp;
+                    <a class="btn btn-primary pad mybtn_primary" id="my_task">My Tasks</a>
                 </div>
                 <div class="col-lg-3 text-right rem_padd">
-                <a class="btn btn-primary pad" data-toggle="modal" data-target="#add_project_modal" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                <a class="btn btn-primary pad mybtn_primary" data-toggle="modal" data-target="#add_project_modal" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
                 </div>
                 </div>
                 </div>
@@ -213,9 +213,9 @@ Critical&nbsp;&nbsp;</span>--></span>";} ?>
            
           </div>
           <div class="modal-footer">
-          <a href="#" id="submit_type2" class="btn btn-primary">Save</a>
+          <a href="#" id="submit_type2" class="btn btn-primary mybtn_primary">Save</a>
           
-            <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default mybtn_primary"  data-dismiss="modal">Close</button>
           </div>
         </div>
         
@@ -332,9 +332,9 @@ Critical&nbsp;&nbsp;</span>--></span>";} ?>
           </div>
            <input type="hidden"  name="task_id" id="task_id"/>
           <div class="modal-footer">
-          <a href="#" id="update_task" class="btn btn-primary">Update</a>
+          <a href="#" id="update_task" class="btn btn-primary mybtn_primary">Update</a>
           
-            <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default mybtn_primary"  data-dismiss="modal">Close</button>
           </div>
         </div>
         
@@ -363,7 +363,7 @@ Critical&nbsp;&nbsp;</span>--></span>";} ?>
                         <div id="success_msg" style=" display:none;" class="alert custom-error alert-success"></div>
                       </div> <div class="modal-footer"> 
                      
-                        <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default mybtn_primary"  data-dismiss="modal">Close</button>
                       </div>
                     </div>
                   </form>
@@ -401,7 +401,7 @@ $.ajax({
 				 var rowid =dt.row.add( [
 						obj.name,
 						obj.description,
-						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=<?php echo base_url()?><?php echo $this->config->item('project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href= ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
 					] ).draw( false );
 			var theNode = $('#data_table').dataTable().fnSettings().aoData[rowid[0]].nTr;
 theNode.setAttribute('id',"pr"+obj.project_id);
@@ -504,7 +504,7 @@ $.ajax({
 			var rowid =dt.row.add( [
 						obj.name,
 						obj.description,
-						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=<?php echo base_url()?><?php echo $this->config->item('project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=<delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
 					] ).draw( false );
 				var theNode = $('#data_table').dataTable().fnSettings().aoData[rowid[0]].nTr;
 theNode.setAttribute('id',"pr"+obj.project_id);

@@ -374,9 +374,9 @@ $this->load->view('commons/header');
    <!--  <input type="button"   value="Save & Export"  id="submit_certificate_1" name="import_btn" class="btn btn-info"/>-->
   </form>
   <div class="col-lg-12">
-  <input type="button" class="btn btn-info"  id="submit_certificate" value="Save"/>
+  <input type="button" class="btn btn-info mybtn_primary"  id="submit_certificate" value="Save"/>
 <a href="<?php echo base_url(); ?><?php echo $this->config->item('certificate_path'); ?>view_pdf/<?php echo $certificate->certificate_id?>"
-    class="btn btn-info pull-right">Save & Export</a>
+    class="btn btn-info pull-right mybtn_primary">Save & Export</a>
 
    </div>
         </div>

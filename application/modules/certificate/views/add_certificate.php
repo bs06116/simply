@@ -380,10 +380,10 @@ $this->load->view('commons/header');
 			
 
 <div class="col-lg-12">
-<button type="button"  value="Save" id="submit_certificate" class="btn btn-info"> Save</button>
+<button type="button"  value="Save" id="submit_certificate" class="btn btn-info mybtn_primary"> Save</button>
             
             
-            <input type="button"   value="Save & Export"  id="submit_certificate_1" name="import_btn" class="btn btn-info pull-right"/>
+            <input type="button"   value="Save & Export"  id="submit_certificate_1" name="import_btn" class="btn btn-info pull-right mybtn_primary"/>
 </div>
 
             

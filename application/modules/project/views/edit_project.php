@@ -60,7 +60,7 @@ $this->load->view('commons/header');
                       </div><!-- /.box-body -->
              <input type="hidden" value="<?=$project_id?>" name="project_id" />
                       <div class="box-footer text-right">
-                        <button type="submit" id="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" id="submit" class="btn btn-primary mybtn_primary">Update</button>
                       </div>
                     </form>
                   </div>

@@ -33,8 +33,8 @@ $this->load->view('commons/header');
     <section class="content m_b_20 white_bg box">
       <div class="row rowimport">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group pull-right ad-imp-btn">
-         <a  data-toggle="modal" data-target="#import_data" data-controls-modal="#import_data" data-backdrop="static" data-keyboard="false"  class="btn btn-primary pull-right importup importup1 pad"> Import Data</a> 
-         <a href="<?php echo base_url(); ?><?php echo $this->config->item('user_path'); ?>add_user" class="btn btn-primary pull-right pad"><i class="fa fa-fw fa-plus"></i> Add New</a>
+         <a  data-toggle="modal" data-target="#import_data" data-controls-modal="#import_data" data-backdrop="static" data-keyboard="false"  class="btn btn-primary pull-right importup importup1 pad mybtn_primary"> Import Data</a>
+         <a href="<?php echo base_url(); ?><?php echo $this->config->item('user_path'); ?>add_user" class="btn btn-primary pull-right pad mybtn_primary"><i class="fa fa-fw fa-plus"></i> Add New</a>
           <?php /*?> <a  href="<?php echo base_url();?>certificate/add_newsfeed" class="btn btn-primary pull-right importup importup1 pad"> Add Feeds</a> <?php */?>
         </div>
       </div>
@@ -491,7 +491,7 @@ $('#c_name').autocomplete({
 
                 type: "POST",
 
-                url:  '<?php echo base_url()?>'+'certificate/get_all_customer_data',
+                url:  ''+'certificate/get_all_customer_data',
 
                 data: {'search_keyword' : ui.item.id},
 

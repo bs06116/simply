@@ -45,7 +45,7 @@ $this->load->view('commons/header');
         	<div class="col-lg-12 form-group">
 			
             <?php if($this->session->userdata('user_type')==1){ ?>
-            	<a href="<?php echo base_url(); ?><?php echo $this->config->item('certificate_path'); ?>add_certificate" class="btn btn-primary pull-right pad"><i class="fa fa-fw fa-plus"></i> Add New</a>
+            	<a href="<?php echo base_url(); ?><?php echo $this->config->item('certificate_path'); ?>add_certificate" class="btn btn-primary pull-right pad mybtn_primary"><i class="fa fa-fw fa-plus"></i> Add New</a>
  <?php } ?>
             <?php if($this->session->userdata('user_type')==1){ ?>
             </div>

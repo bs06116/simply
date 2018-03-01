@@ -47,7 +47,7 @@ $this->load->view('commons/header');
             <div class="row">
             <div class="col-lg-12 text-right form-group">
           	 <input type="hidden" id="customer_id" name="customer_id" value="" />
-             <input type="button" id="submit_certificate" value="Submit" class="btn btn-info"/>
+             <input type="button" id="submit_certificate" value="Submit" class="btn btn-info mybtn_primary" />
             </form>
             </div>
             </div>
@@ -78,7 +78,7 @@ $('#c_name').autocomplete({
 		
 	/*	  $.ajax({
                 type: "POST",
-                url:  '<?php echo base_url()?>'+'certificate/get_all_customer_data',
+                url:  ''+'certificate/get_all_customer_data',
                 data: {'search_keyword' : ui.item.id},
                 dataType: "text",
                 success: function(response){

@@ -32,7 +32,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-  <b>Simply</b>Precast
+<img src="<?php echo base_url()?>img/simply_logo.png" />
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -67,7 +67,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-6 s-btn">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat mybtn_primary">Sign In</button>
         </div>
         <!-- /.col -->
       </div>

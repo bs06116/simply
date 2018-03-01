@@ -36,7 +36,7 @@ $total=count($all_project);
           
           <div class="box-body">
             <div class="row">
-              <div class="col-lg-12 text-right form-group"> <a class="btn btn-primary pad" data-toggle="modal" data-target="#add_project_modal" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a> </div>
+              <div class="col-lg-12 text-right form-group"> <a class="btn btn-primary pad mybtn_primary mybtn_primary" data-toggle="modal" data-target="#add_project_modal" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a> </div>
             </div>
             <table id="data_table" class="table table-bordered table-striped icon_space">
               <thead>
@@ -130,8 +130,8 @@ $total=count($all_project);
           <div id="error_msg" style=" display:none;" class="alert custom-error alert-danger error_msg"></div>
           <div id="success_msg" style=" display:none;" class="alert custom-error alert-success success_msg"></div>
         </div>
-        <div class="modal-footer"> <a href="#" id="submit_type2" class="btn btn-primary">Save</a>
-          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+        <div class="modal-footer"> <a href="#" id="submit_type2" class="btn btn-primary mybtn_primary">Save</a>
+          <button type="button" class="btn btn-default mybtn_primary"  data-dismiss="modal">Close</button>
         </div>
       </div>
     </form>
@@ -249,7 +249,7 @@ $.ajax({
 						
 						obj.task,
 
-						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=<?php echo base_url()?><?php echo $this->config->item('project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
 
 					] ).draw( false );
 
@@ -445,7 +445,7 @@ $.ajax({
 
 						obj.description,
 
-						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=<?php echo base_url()?><?php echo $this->config->item('project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href('project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
 
 					] ).draw( false );
 

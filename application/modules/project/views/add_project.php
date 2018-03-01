@@ -68,7 +68,7 @@ $this->load->view('commons/header');
                       </div><!-- /.box-body -->
             
                       <div class="box-footer text-right">
-                        <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" id="submit" class="btn btn-primary mybtn_primary">Save</button>
                       </div>
                     </form>
                   </div>

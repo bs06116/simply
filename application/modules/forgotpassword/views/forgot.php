@@ -62,10 +62,10 @@
         <!-- /.col -->
         <div class="col-xs-12 s-frg">
         <div class="col-xs-6  s-frg1">
-          <button type="submit" class="btn btn-primary btn-block btn-flat pull-right">Submit</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat pull-right mybtn_primary">Submit</button>
         </div>
         <div class="col-xs-6  s-frg2">
-          <a href="<?php echo base_url();?>" class="btn btn-primary btn-block btn-flat pull-right">Back</a>
+          <a href="<?php echo base_url();?>" class="btn btn-primary btn-block btn-flat pull-right mybtn_primary">Back</a>
         </div>
 		
 			

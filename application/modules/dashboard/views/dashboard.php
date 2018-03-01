@@ -33,9 +33,9 @@ $this->load->view('commons/header.php');
               <div class="box-header"> 
                 
                 <!-- first-task-->
-                <button class="collapse1 btn btn-primary">My Task </button>
-                <button class="collapse2 btn btn-primary">All Task </button>
-                <a  data-toggle="modal" data-target="#import_data" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> </a> 
+                <button class="collapse1 btn btn-primary mybtn_primary">My Task </button>
+                <button class="collapse2 btn btn-primary mybtn_primary">All Task </button>
+                <a  data-toggle="modal" data-target="#import_data" class="btn btn-primary mybtn_primary"><i class="fa fa-fw fa-plus"></i> </a>
                 <!-- pop up -->
                 <div id="import_data" class="modal fade modalfadeup" role="dialog" style="width: 720px; padding-left:0;">
                 <div class="modal-dialog">
@@ -105,7 +105,7 @@ $this->load->view('commons/header.php');
                             <select class="form-group selectpicker" multiple name="user[]" id="test" >
                           
                               <?php foreach($all_user as $au): ?>
-                              <option value="<?php echo $au['userid']?>"><?php echo $au['fullname']?></o ption>
+                              <option value="<?php echo $au['userid']?>"><?php echo $au['fullname']?></option>
                               <?php endforeach;?>
                             </select>
                           </div>
@@ -140,8 +140,8 @@ $this->load->view('commons/header.php');
                         <div id="error_msg" style=" display:none;" class="alert custom-error alert-danger"></div>
                         <div id="success_msg" style=" display:none;" class="alert custom-error alert-success"></div>
                       </div>
-                      <div class="modal-footer"> <a href="#" id="submit_type2" class="btn btn-primary">Save</a>
-                        <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+                      <div class="modal-footer"> <a href="#" id="submit_type2" class="btn btn-primary mybtn_primary">Save</a>
+                        <button type="button" class="btn btn-default mybtn_primary"  data-dismiss="modal">Close</button>
                       </div>
                     </div>
                   </form>
@@ -634,7 +634,7 @@ $.ajax({
 			var rowid =dt.row.add( [
 						obj.name,
 						obj.description,
-						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=<?php echo base_url()?><?php echo $this->config->item('project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+						'<a class="btn btn-primary btn-icon" href="#" data-toggle="modal" onclick="get_project('+obj.project_id+')" data-target="#update_project_modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a><a class="btn btn-danger btn-icon" onclick="return confirm('+"'Are you sure want to delete this record.'"+')" href=project_path'); ?>delete_project/'+obj.project_id+'><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
 					] ).draw( false );
 				var theNode = $('#data_table').dataTable().fnSettings().aoData[rowid[0]].nTr;
 theNode.setAttribute('id',"pr"+obj.project_id);
@@ -741,9 +741,9 @@ return false;
       </section> </div>
       <div class="col-lg-12" id="load_html"> </div>
       <div class="modal-footer">
-       <input type="button" class="btn btn-info" value="Submit" id="submit_certificate">
+       <input type="button" class="btn btn-info mybtn_primary" value="Submit" id="submit_certificate">
        
-        <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default mybtn_primary"  data-dismiss="modal">Close</button>
       </div>
     </div>
     </form>
@@ -857,7 +857,7 @@ $('#c_name').autocomplete({
 		
 	/*	  $.ajax({
                 type: "POST",
-                url:  '<?php echo base_url()?>'+'certificate/get_all_customer_data',
+                url:  ''+'certificate/get_all_customer_data',
                 data: {'search_keyword' : ui.item.id},
                 dataType: "text",
                 success: function(response){

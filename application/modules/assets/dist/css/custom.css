@@ -317,8 +317,8 @@ h5 {
 	font-size: 15px;
 }
 .cus-btn {
-	background-color: #3C8DBC;
-	border-color: #367FA9;
+	background-color: #ffd300;
+	border-color: #ffd300;
 	border-radius: 3px 3px 3px 3px;
 	padding: 5px 10px;
 	float: none;
@@ -610,7 +610,7 @@ h5 {
 	float: right;
 }
 .box {
-	border-top: 3px solid #3c8dbc;
+	border-top: 3px solid #ffd300;
 }
 .cke_contents {
 	height: 150px !important;
@@ -784,7 +784,7 @@ table tr th {
     padding: 5px 7px;
 }
 .block{
-	background-color#eed5d1;
+	background-color:#eed5d1;
 }
 .sm2 i {
     font-size: 8px;
@@ -1157,7 +1157,7 @@ table tr td:last-child a:last-child {
     text-align: center !important;
 }
 .s-menu-btn i {
-    background-color: #ef2420;
+    background-color: #ffd300;
     color: #ffffff;
     display: block !important;
     font-size: 30px;
@@ -1214,4 +1214,16 @@ table tr td:last-child a:last-child {
 
 
 
+}
+.mybtn_primary{
+	background-color: #ffd300 !important;
+	border-color: #ffd300 !important;
+	color:#fff !important;
+}
+
+a:hover, a:active, a:focus{
+	color:#fff !important;
+}
+.skin-red .main-header .logo:hover{
+	color:#fff;
 }

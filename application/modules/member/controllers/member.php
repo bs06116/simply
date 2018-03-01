@@ -110,10 +110,32 @@ public function save_member()
 	}
 	else
 	{
-		
+
+        $image_name=$_FILES['image'] ['name'] ;
+        if(!empty($image_name)){
+            $final_image_name=time().$image_name;
+            $config['file_name'] = $final_image_name;
+            $config['upload_path'] = dirname($_SERVER["SCRIPT_FILENAME"])."/img/";
+            $config['allowed_types'] = 'gif|jpg|png';
+            //$config['max_size']	= '5000';
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            $check_upload = $this->upload->do_upload('image');
+            if(!$check_upload){
+                $this->session->set_flashdata('msg', $this->config->item('error_msg'));
+                @redirect(base_url().$this->config->item('member_path').'manage_member');
+            }
+        }else{
+            $final_image_name='';
+        }
+
+
+
 		$user_data=array(
 		"fullname"=>$fullname,
 		"username"=>$user_name,
+		"image_name"=>$final_image_name,
 		"email"=>$email,
 		"password"=>md5($password),
 		"designation"=>$designation,
@@ -149,7 +171,8 @@ public function save_member()
 		$email=$this->input->post('email');
 	
 		$designation=$this->input->post('designation');
-	
+        $edit_image_name=$this->input->post('edit_image_name');
+
 		$this->form_validation->set_rules('fullname', 'Name', 'trim|required|min_length[3]');
 	//	$this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[3]|callback_update_email_exists['.$email.']');
 		
@@ -163,7 +186,25 @@ public function save_member()
 		}
 		else
 		{
-		
+            $image_name=$_FILES['image'] ['name'] ;
+            if(!empty($image_name)){
+                $final_image_name=time().$image_name;
+                $config['file_name'] = $final_image_name;
+                $config['upload_path'] = dirname($_SERVER["SCRIPT_FILENAME"])."/img/";
+                $config['allowed_types'] = 'gif|jpg|png';
+                //$config['max_size']	= '5000';
+
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                $check_upload = $this->upload->do_upload('image');
+                if(!$check_upload){
+                    $this->session->set_flashdata('msg', $this->config->item('error_msg'));
+                    @redirect(base_url().$this->config->item('member_path').'manage_member');
+                }
+                unlink( dirname($_SERVER["SCRIPT_FILENAME"])."/img/".$edit_image_name);
+            }else{
+                $final_image_name=$edit_image_name;
+            }
 				
 				
 			if($password!=''){
@@ -172,6 +213,7 @@ public function save_member()
 						"email"=>$email,
 						"password"=>md5($password),
 						"designation"=>$designation,
+                        "image_name"=>$final_image_name,
 												
 						);
 						
@@ -180,6 +222,7 @@ public function save_member()
 						"fullname"=>$fullname,
 						"email"=>$email,
 						"designation"=>$designation,
+                        "image_name"=>$final_image_name,
 						
 						);
 					}				

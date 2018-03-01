@@ -78,9 +78,24 @@ $this->load->view('commons/header');
                         </div>
                    </div>
                    </div>
-                        
-                        
-                         
+                          <div class="row">
+                              <div class="col-lg-6">
+                                  <div class="form-group">
+                                      <label for="section">Image 160 * 160</label>
+                                      <input onchange="readURL(this);" id="image"  type="file" value="<?php echo set_value('image'); ?>"  name="image">
+
+                                      <div class="text-red"><?php echo form_error('image'); ?></div>
+
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="image-holder">
+                              <img class="thumb-image" >
+
+                          </div>
+
+
+
                         
                          
                         
@@ -93,7 +108,7 @@ $this->load->view('commons/header');
                       </div><!-- /.box-body -->
             
                       <div class="box-footer text-right">
-                        <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" id="submit" class="btn btn-primary mybtn_primary">Save</button>
                       </div>
                     </form>
                   </div>
@@ -104,4 +119,23 @@ $this->load->view('commons/header');
     <!-- /.content -->
     </div>
  <!-- /.content-wrapper -->
+
+<script type="text/javascript">
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.thumb-image')
+                    .attr('src', e.target.result)
+                    .width(160)
+                    .height(160);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <?php $this->load->view('commons/footer'); ?>

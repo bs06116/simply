@@ -13,8 +13,8 @@ $this->load->view('commons/header');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User
-        <small>Add User</small>
+       Password
+        <small>Change Password</small>
       </h1>
       
     </section>
@@ -27,7 +27,7 @@ $this->load->view('commons/header');
             <!-- general form elements -->
                   <div class="box box-primary">
                     <div class="box-header with-border">
-                      <h3 class="box-title">User Form</h3>
+                      <h3 class="box-title">Change Password Form</h3>
                     </div><!-- /.box-header -->
                     <!-- form start -->
                     <?php echo $this->session->flashdata('message')?>
@@ -65,7 +65,7 @@ $this->load->view('commons/header');
                       </div><!-- /.box-body -->
             
                       <div class="box-footer text-right">
-                        <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" id="submit" class="btn btn-primary mybtn_primary">Save</button>
                       </div>
                     </form>
                   </div>
