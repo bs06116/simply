@@ -10,6 +10,12 @@ $this->load->view('commons/header');
 
 ?>
 
+
+
+
+
+
+
  <!-- Content Wrapper. Contains page content -->
 
     <div class="content-wrapper">
@@ -101,33 +107,15 @@ $this->load->view('commons/header');
                     </div>
 
                 </div>
-            <!--<div class="col-lg-3">
+            <div class="col-lg-3">
 
                 	<div class="form-group">
 
                     	<label>Attached Document</label>
 
-                        <input type="text" name="e_doc_no"  value="<?php /*echo $certificate->e_doc_no;*/?>" class="form-control" >
+                        <input type="text" name="e_doc_no"  value="<?php echo $certificate->e_doc_no;?>" class="form-control" >
 
                     </div>
-
-                </div>-->
-                <div class="col-lg-3">
-
-                    <div class="form-group">
-                        <label>Attached Document </label><br />
-
-                        <select class="form-group" multiple name="document[]" id="test"  >
-
-                            <?php foreach($all_document as $ad):
-                                $result_data=$this->certificate_model->check_document_attach($ad['id'],$certificate->certificate_id);
-
-                                ?>
-                                <option <?php if($result_data){?> selected <?php }?> value="<?php echo $ad['id']?>"><?php echo $ad['name']?></option>
-                            <?php endforeach;?>
-                        </select>
-                    </div>
-
 
                 </div>
              <div class="col-lg-3">
@@ -218,7 +206,6 @@ $this->load->view('commons/header');
 
                 </div>
 
-
                 <?php /*?><div class="col-lg-3">
 
                 	<div class="form-group">
@@ -304,7 +291,7 @@ $this->load->view('commons/header');
 
                 </div>
 
-
+               
 
             </div>
 
@@ -634,14 +621,5 @@ $.ajax({
 return false;
 
 });
-
-</script>
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        $('#test').multiselect();
-
-    });
 
 </script>

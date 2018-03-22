@@ -24,7 +24,8 @@ class Certificate extends CI_Controller {
 
 		//$this->load->model('project/project_model');	
 
-		$this->load->model('certificate/certificate_model');	
+		$this->load->model('certificate/certificate_model');
+        $this->load->model('document/document_model');
 
 		$this->load->library('commons/commons_lib');	
 
@@ -56,6 +57,7 @@ class Certificate extends CI_Controller {
 			//$data['cert_code'] = $cert_code;
 			$data['cert_code_id'] = ++$cert_code->certificate_id;
 			$data['cert_code'] = ++$cert_code->cert_code;
+             $data['all_document'] = $this->document_model->get_all_document();
 			$this->load->view('add_certificate',$data);
 		}else{ 
 			$this->session->unset_userdata('logged_in');
@@ -75,8 +77,9 @@ class Certificate extends CI_Controller {
 		 if($this->session->userdata('user_type')==1){ 
 			 $data["certificate"]=$this->certificate_model->get_certificate_data($cert_id);
 	 		$data['single_data']=$this->commons_model->single_record('cust','cust_id',$data["certificate"]->customer_id);
+             $data['all_document'] = $this->document_model->get_all_document();
 	 		$this->load->view('edit_certificate',$data);
-		}else{ 
+		}else{
 			$this->session->unset_userdata('logged_in');
 			$this->session->unset_userdata('user_id');
 			redirect(base_url().'login');
@@ -97,12 +100,14 @@ class Certificate extends CI_Controller {
 
 		public function manage_certificate()
 
-		{	
+		{
 
 			//$data["all_cer"]=$this->commons_model->all_record_with_id('certificate','user_id',$this->session->userdata('user_id'));
 			$data["all_cer"]=$this->certificate_model->get_all_certificate();
 			$data["get_all_certificate_by_id"]=$this->certificate_model->get_all_certificate_by_id();
-			
+
+
+
 		//	$data["all_cer"]=$this->commons_model->all_record('certificate');
 
 			$this->load->view('manage_certificate',$data);
@@ -153,21 +158,7 @@ class Certificate extends CI_Controller {
 
 			}
 
-			/*$order_no = $this->input->post('order_no');
 
-			if(empty($order_no) or !is_numeric($order_no)){
-
-			 $message.="<p>Only numeric field required in Order No.</p>";
-
-			}*/
-
-			/*$production_no = $this->input->post('production_no');
-
-			if(empty($production_no) or !is_numeric($order_no)){
-
-			 $message.="<p> Only numeric field required in Production No.</p>";
-
-			}*/
 
 			
 
@@ -189,17 +180,6 @@ class Certificate extends CI_Controller {
 
 			}
 
-			
-
-			/*$ref_to_standard = $this->input->post('ref_to_standard');
-
-			if(empty($ref_to_standard)){
-
-				$message.="<p>Reference To Standard valid  field Required.</p>";
-
-				
-
-			}*/
 
 		
 
@@ -215,35 +195,11 @@ class Certificate extends CI_Controller {
 
 			
 
-			
-/*
-			$c_attention = $this->input->post('c_attention');
-
-			if(empty($c_attention)){
-
-				$message.="<p>Customer Attention vlaid field Required.</p>";
-
-				
-
-			}
-*/
-			
-
-		/*	$c_location = $this->input->post('c_location');
-
-			if(empty($c_location)){
-
-				$message.="<p>Customer Location vlaid field Required.</p>";
-
-				
-
-			}*/
-
 			$e_doc_no = $this->input->post('e_doc_no');
 
 			if(empty($e_doc_no)){
 
-				$message.="<p>External Doc No vlaid field Required.</p>";
+				$message.="<p>External Doc No valid field Required.</p>";
 
 				
 
@@ -255,7 +211,7 @@ class Certificate extends CI_Controller {
 
 			if(empty($identification_nos)){
 
-				$message.="<p>Identification No  vlaid field Required.</p>";
+				$message.="<p>Identification No  valid field Required.</p>";
 
 				
 
@@ -265,7 +221,7 @@ class Certificate extends CI_Controller {
 
 			if(empty($q_test)){
 
-				$message.="<p>Quality test  vlaid field Required.</p>";
+				$message.="<p>Quality test  valid field Required.</p>";
 
 				
 
@@ -311,6 +267,7 @@ class Certificate extends CI_Controller {
 
 			}
 		$identification_to = $this->input->post('identification_to');
+            $document = $this->input->post('document');
 			
 
 			
@@ -335,9 +292,7 @@ class Certificate extends CI_Controller {
 
 						"c_name"=>$c_name,
 
-						//"order_no"=>$order_no,
 
-						//"production_no"=>$production_no,
 
 						"p_no"=>$products_id,
 
@@ -371,13 +326,10 @@ class Certificate extends CI_Controller {
 						"tested_by"=>$tested_by,
 						"inspected_by"=>$inspected_by,
 						"identity_to"=>$identification_to,
-						
-
-						
-
 						"cer_date"=>date("Y-m-d")
 
-						);	
+						);
+
 				$updated_date=date('Y-m-d H:i:s');
 				$data_message=array("name"=>$c_name,"feed_date"=>date("Y-m-d"),"feed_by_id"=>$this->session->userdata('user_id'),"feed_date"=>date('Y-m-d H:i:s'),"customer_id"=>$customer_id,"message"=>"Certification # ".$cert_code.',,'.$cert_code_id.",,"."Generated");		
 
@@ -386,6 +338,15 @@ class Certificate extends CI_Controller {
 				$result=$this->commons_model->insert_record('news_feed',$data_message);
 				
 				$update_cus_date=$this->certificate_model->update_cus_date($customer_id,$updated_date);
+                $result_user_id=$this->certificate_model->get_user_id($customer_id);
+
+
+                $return_data = array();
+                foreach ($document as $value)
+                {
+                    $return_data[] = array("document_id"=>$value, "certficate_id"=>$last_certificate_id, "user_id"=>$result_user_id);
+                }
+                $this->db->insert_batch('document_assign',$return_data);
 				/*$t_prod_data=array(
 
 							
@@ -556,7 +517,7 @@ class Certificate extends CI_Controller {
 				
 
 			}*/
-
+/*
 			$e_doc_no = $this->input->post('e_doc_no');
 
 			if(empty($e_doc_no)){
@@ -565,7 +526,7 @@ class Certificate extends CI_Controller {
 
 				
 
-			}
+			}*/
 
 			
 
@@ -670,7 +631,7 @@ class Certificate extends CI_Controller {
 
 						//"c_location"=>$c_location,
 
-						"e_doc_no"=>$e_doc_no,
+						//e_doc_no"=>$e_doc_no,
 
 						"products_id"=>$products_id,
 
@@ -900,13 +861,13 @@ class Certificate extends CI_Controller {
 
 			$e_doc_no = $this->input->post('e_doc_no');
 
-			if(empty($e_doc_no)){
+		/*	if(empty($e_doc_no)){
 
 				$message.="<p>External Doc No vlaid field Required.</p>";
 
 				
 
-			}
+			}*/
 			
 			
 $d_d = $this->input->post('d_d');
@@ -951,6 +912,7 @@ $d_d = $this->input->post('d_d');
 			$cer_id = $this->input->post('cer_id');
 
 			$identification_to = $this->input->post('identification_to');
+            $document = $this->input->post('document');
 
 			
 
@@ -990,7 +952,7 @@ $d_d = $this->input->post('d_d');
 
 					//	"c_location"=>$c_location,
 
-						"e_doc_no"=>$e_doc_no,
+						//"e_doc_no"=>$e_doc_no,
 
 						"products_id"=>$products_id,
 
@@ -1007,6 +969,14 @@ $d_d = $this->input->post('d_d');
 						);	
 
 				$last_certificate_id=$this->commons_model->update_record('certificate','certificate_id',$cer_id,$certi_data);
+                $last_certificate_id=$this->commons_model->delete_record_from_db('document_assign','certficate_id',$cer_id);
+                $result_user_id=$this->certificate_model->get_user_id($customer_id);
+                $return_data = array();
+                foreach ($document as $value)
+                {
+                    $return_data[] = array("document_id"=>$value, "certficate_id"=>$cer_id, "user_id"=>$result_user_id);
+                }
+                $this->db->insert_batch('document_assign',$return_data);
 
 				if($cer_id){
 

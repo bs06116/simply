@@ -188,10 +188,13 @@ public function save_member()
 		{
             $image_name=$_FILES['image'] ['name'] ;
             if(!empty($image_name)){
+
+                $config['remove_spaces'] = TRUE;
                 $final_image_name=time().$image_name;
                 $config['file_name'] = $final_image_name;
                 $config['upload_path'] = dirname($_SERVER["SCRIPT_FILENAME"])."/img/";
                 $config['allowed_types'] = 'gif|jpg|png';
+
                 //$config['max_size']	= '5000';
 
                 $this->load->library('upload', $config);

@@ -109,14 +109,26 @@ $this->load->view('commons/header');
 
                 </div>
                 <div class="col-lg-3">
+                    <div class="form-group">
+                            <label>Attached Document </label><br />
 
-                	<div class="form-group">
+                            <select class="form-group" multiple name="document[]" id="test"  >
 
-                    	<label>Attached Document </label>
+                                <?php foreach($all_document as $ad): ?>
+                                    <option value="<?php echo $ad['id']?>"><?php echo $ad['name']?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
 
-                        <input type="text" name="e_doc_no" class="form-control" >
 
-                    </div>
+            </div>
+              <!--<div class="form-group">
+
+                  <label>Attached Document </label>
+
+                  <input type="text" name="e_doc_no" class="form-control" >
+
+              </div>-->
 
                 </div>
 
@@ -297,7 +309,6 @@ $this->load->view('commons/header');
 
                 </div>
 
-            </div>
 
             <div class="row">
 
@@ -714,4 +725,13 @@ $.ajax({
 return false;
 
 });
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#test').multiselect();
+
+    });
+
 </script>

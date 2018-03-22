@@ -111,6 +111,18 @@ public function get_product_data($p_id){
 			
 			return $this->db->affected_rows();		
 		}
+		public function check_document_attach($document_id,$cert_id){
+            $query = $this->db->query('SELECT * FROM  document_assign WHERE document_id="'.$document_id.'" AND 	certficate_id="'.$cert_id.'"' );
+            return $query->result_array();
+        }
+    public function get_document($cert_id){
+        $query = $this->db->query('SELECT 	document.file_name FROM  document,document_assign WHERE document.id=document_assign.document_id AND document_assign.certficate_id="'.$cert_id.'"' );
+        return $query->result();
+    }
+    public function get_user_id($customer_id){
+        $query = $this->db->query('SELECT 	users.userid FROM  cust,users WHERE cust.cust_id="'.$customer_id.'" AND cust.account=users.username' );
+        return $query->row('userid');
+    }
 }
 
 

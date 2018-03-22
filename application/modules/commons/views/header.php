@@ -290,9 +290,9 @@ $image_name=$result->image_name;
       
 
       <!-- sidebar menu: : style can be found in sidebar.less -->
-		<?php  if($this->session->userdata('user_type')==1){?>
-      <ul class="sidebar-menu">
 
+      <ul class="sidebar-menu">
+          <?php  if($this->session->userdata('user_type')==1){?>
         <li class="header">MAIN NAVIGATION</li>
 
          <li class="<?php if (preg_match("/dashboard/", $url)) { ?> active <?php } ?>">
@@ -306,11 +306,12 @@ $image_name=$result->image_name;
           </a>
 
         </li>
+          <? }?>
 
-        
 
-        
 
+
+          <?php  if($this->session->userdata('user_type')==1){?>
         <li class="<?php if (preg_match("/manage_user/", $url)) { ?> active <?php } ?>">
 
           <a href="<?php echo base_url(); ?><?php echo $this->config->item('user_path'); ?>manage_user">
@@ -322,6 +323,8 @@ $image_name=$result->image_name;
           </a>
 
         </li>
+          <? }?>
+          <?php  if($this->session->userdata('user_type')==1){?>
 
         <li class="<?php if (preg_match("/manage_product/", $url)) { ?> active <?php } ?>">
 
@@ -334,18 +337,35 @@ $image_name=$result->image_name;
           </a>
 
         </li>
+          <? }?>
+          <?php  if($this->session->userdata('user_type')==1 or $this->session->userdata('user_type')==2){?>
 
-        <li class="<?php if (preg_match("/manage_certificate/", $url)) { ?> active <?php } ?>">
+        <li class="<?php if (preg_match("/manage_document/", $url)) { ?> active <?php } ?>">
 
-          <a href="<?php echo base_url(); ?><?php echo $this->config->item('certificate_path'); ?>manage_certificate">
+          <a href="<?php echo base_url(); ?><?php echo $this->config->item('document_path'); ?>manage_document">
 
             <i class="fa fa-files-o"></i>
 
-            <span>Certificates</span>
+            <span>Document</span>
 
           </a>
 
         </li>
+          <? }?>
+          <?php  if($this->session->userdata('user_type')==1 or $this->session->userdata('user_type')==2){?>
+          <li class="<?php if (preg_match("/manage_certificate/", $url)) { ?> active <?php } ?>">
+
+              <a href="<?php echo base_url(); ?><?php echo $this->config->item('certificate_path'); ?>manage_certificate">
+
+                  <i class="fa fa-files-o"></i>
+
+                  <span>Certificates</span>
+
+              </a>
+
+          </li>
+          <?php }?>
+          <?php  if($this->session->userdata('user_type')==1){?>
 
          <li class="<?php if (preg_match("/manage_member/", $url)) { ?> active <?php } ?>">
 
@@ -358,7 +378,8 @@ $image_name=$result->image_name;
           </a>
 
         </li>
-
+          <? }?>
+          <?php  if($this->session->userdata('user_type')==1){?>
          <li class="<?php if (preg_match("/manage_project/", $url)) { ?> active <?php } ?>">
 
           <a href="<?php echo base_url(); ?><?php echo $this->config->item('project_path'); ?>manage_project">
@@ -370,6 +391,9 @@ $image_name=$result->image_name;
           </a>
 
         </li>
+          <?php }?>
+
+          <?php  if($this->session->userdata('user_type')==1){?>
 
          <li class="<?php if (preg_match("/manage_task/", $url)) { ?> active <?php } ?>">
 
@@ -382,6 +406,7 @@ $image_name=$result->image_name;
           </a>
 
         </li>
+        <?php }?>
 
       <?php /*?> <li class="<?php if (preg_match("/import_data/", $url)) { ?> active <?php } ?>">
 
@@ -408,7 +433,7 @@ $image_name=$result->image_name;
         </li><?php */?>
 
       </ul>
-	<?php } ?>
+
     </section>
 
     <!-- /.sidebar -->

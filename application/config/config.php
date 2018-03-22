@@ -24,6 +24,8 @@ $config['member_path'] = 'member/';
 $config['project_path'] = 'project/';
 $config['task_path'] = 'task/';
 
+$config['document_path'] = 'document/';
+
 
 /*
 |--------------------------------------------------------------------------

@@ -59,7 +59,7 @@ $this->load->view('commons/header');
                         </div>
                          <div class="form-group">
                           <label for="section">Designation</label>
-                         <input type="text" value="<?php  if(isset($original_form_values) && $original_form_values == 1){echo $user_data->designation; }?>"  name="designation" id="designation" class="form-control" placeholder="Password">
+                         <input type="text" value="<?php  if(isset($original_form_values) && $original_form_values == 1){echo $user_data->designation; }?>"  name="designation" id="designation" class="form-control" placeholder="Designation">
                        <div class="text-red"><?php echo form_error('designation'); ?></div>
                         </div>
 
@@ -76,7 +76,7 @@ $this->load->view('commons/header');
                               </div>
                           </div>
                           <div id="image-holder">
-                              <img class="thumb-image" style="width: 160px; height: 160px" src="<?php echo base_url()?>img/<?php echo $user_data->image_name; ?>" >
+                              <img class="thumb-image" style="width: 160px; height: 160px" src="<?php echo base_url()?>img/<?php echo ($user_data->image_name==''? 'no_img.jpg' : $user_data->image_name); ?>" >
 
                           </div>
                           <input type="hidden"  value="<?php echo $user_data->image_name; ?>" name="edit_image_name" />
