@@ -204,7 +204,14 @@ public function save_member()
                     $this->session->set_flashdata('msg', $this->config->item('error_msg'));
                     @redirect(base_url().$this->config->item('member_path').'manage_member');
                 }
-                unlink( dirname($_SERVER["SCRIPT_FILENAME"])."/img/".$edit_image_name);
+                if($edit_image_name){
+
+                    if(file_exists($_SERVER["SCRIPT_FILENAME"]."/img/".$edit_image_name)){
+                        unlink( dirname($_SERVER["SCRIPT_FILENAME"])."/img/".$edit_image_name);
+                    }
+
+                }
+
             }else{
                 $final_image_name=$edit_image_name;
             }

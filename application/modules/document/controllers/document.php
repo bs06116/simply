@@ -57,7 +57,9 @@ class Document extends CI_Controller {
 			//$data['cert_code'] = $cert_code;
 			$data['cert_code_id'] = ++$cert_code->certificate_id;
 			$data['cert_code'] = ++$cert_code->cert_code;
-			$this->load->view('add_document',$data);
+             $data["all_doctype"]=$this->commons_model->all_record_delete_bit("doctype");
+
+             $this->load->view('add_document',$data);
 		}else{ 
 			$this->session->unset_userdata('logged_in');
 			$this->session->unset_userdata('user_id');
@@ -139,7 +141,7 @@ class Document extends CI_Controller {
 
                 $config=  array(
                     'file_name' => $filename,
-                    'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/",
+                    'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/document/",
                     // 'upload_url'      => base_url()."uploads/",
                     'allowed_types' => "*",
                     'max_size'        => "2048000",
@@ -153,7 +155,7 @@ class Document extends CI_Controller {
 
                     "name"=>$name,
 
-                    "type"=>$type,
+                    "document_type_id"=>$type,
 
                     "file_name"=>$filename,
 
@@ -203,7 +205,12 @@ class Document extends CI_Controller {
 
 		}
 
-		
+    public function filter_document($doc_type_id=0,$cert_id=0){
+
+        $data['result']=$this->document_model->filter_document($doc_type_id);
+        $data['cert_id']=$cert_id;
+        $this->load->view('filter_document',$data);
+    }
 
 
 }

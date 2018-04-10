@@ -60,28 +60,49 @@ $this->load->view('commons/header');
 
             <div class="row m_b_20">
                 <div class="row">
+                    <div class="col-lg-3">
+
+                        <div class="form-group">
+
+                            <label>Customer Reference</label>
+
+                            <input type="text" name="c_name" id="c_name" placeholder="Search by name" class="form-control" >
+
+                        </div>
+
+                    </div>
+                </div>
+
+               <!-- <div class="row">
             	<div class="col-lg-3">
 
                 	<div class="form-group">
 
                     	<label>Document Name</label>
 
-                        <input type="text" name="name" id="name" value="<?php echo set_value('name');?>" placeholder="Document Name"
+                        <input type="text" name="name" id="name" value="<?php /*echo set_value('name');*/?>" placeholder="Document Name"
                                class="form-control" >
-                        <div class="help-block form-error"><?php echo form_error('name'); ?></div>
+                        <div class="help-block form-error"><?php /*echo form_error('name'); */?></div>
 
                     </div>
 
                 </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <div class="col-lg-3">
 
                         <div class="form-group">
 
                             <label>Document Type</label>
+                            <select name="type" class="form-group form-control ">
+                                <option value="">Select Product Type</option>
+                                <?php foreach($all_doctype as $ad):?>
+                                <option value="<?php echo $ad['id']?>"><?php echo $ad['name']?></option>
+                            <?php endforeach;?>
+                            </select>
 
-                            <input type="text" name="type"  value="<?php echo set_value('type');?>"class="form-control" >
+
+
                             <div class="help-block form-error"><?php echo form_error('type'); ?></div>
                         </div>
 

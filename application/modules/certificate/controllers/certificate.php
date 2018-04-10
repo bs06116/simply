@@ -50,7 +50,10 @@ class Certificate extends CI_Controller {
 
 	{
 		 if($this->session->userdata('user_type')==1){ 
-			$cert_code=$this->certificate_model->get_last_row();
+			 $cert_code=$this->certificate_model->get_last_row();
+			   $cert_code->cert_code;
+
+
 			//$cert_code++;
 			//$data['cert_code_id'] = $cert_code;
 			//$data['cert_code'] = sprintf('%05d',$cert_code);
@@ -58,6 +61,7 @@ class Certificate extends CI_Controller {
 			$data['cert_code_id'] = ++$cert_code->certificate_id;
 			$data['cert_code'] = ++$cert_code->cert_code;
              $data['all_document'] = $this->document_model->get_all_document();
+             $data["all_doctype"]=$this->commons_model->all_record_delete_bit('doctype');
 			$this->load->view('add_certificate',$data);
 		}else{ 
 			$this->session->unset_userdata('logged_in');
@@ -78,6 +82,15 @@ class Certificate extends CI_Controller {
 			 $data["certificate"]=$this->certificate_model->get_certificate_data($cert_id);
 	 		$data['single_data']=$this->commons_model->single_record('cust','cust_id',$data["certificate"]->customer_id);
              $data['all_document'] = $this->document_model->get_all_document();
+             $data['single_document_id'] = $this->document_model->singe_document($cert_id);
+
+           if($data['single_document_id']){
+               $data['single_document_id']= $data['single_document_id'];
+           }else{
+               $data['single_document_id']='';
+           }
+             $data["all_doctype"]=$this->commons_model->all_record_delete_bit('doctype');
+          
 	 		$this->load->view('edit_certificate',$data);
 		}else{
 			$this->session->unset_userdata('logged_in');
@@ -104,15 +117,46 @@ class Certificate extends CI_Controller {
 
 			//$data["all_cer"]=$this->commons_model->all_record_with_id('certificate','user_id',$this->session->userdata('user_id'));
 			$data["all_cer"]=$this->certificate_model->get_all_certificate();
+
 			$data["get_all_certificate_by_id"]=$this->certificate_model->get_all_certificate_by_id();
 
-
-
+            $data["all_doctype"]=$this->commons_model->all_record_delete_bit("doctype");
+            $data["all_customer"]=$this->commons_model->all_record('cust');
 		//	$data["all_cer"]=$this->commons_model->all_record('certificate');
 
 			$this->load->view('manage_certificate',$data);
 
 		}
+    public function search_certificate()
+
+    {
+        $query='';
+        if(isset($_GET['document_type']) && !empty($_GET['document_type'])){
+            $document_type=$_GET['document_type'];
+            $query.= " AND `document`.`document_type_id` = '$document_type'";
+        }
+        if(isset($_GET['user']) && !empty($_GET['user'])){
+            $user=$_GET['user'];
+            $query.= " AND `certificate`.`customer_id` = '$user'";
+        }
+        if(isset($_GET['issue_date']) && !empty($_GET['issue_date'])){
+            $issue_date=$_GET['issue_date'];
+            $query.= " AND `certificate`.`inspection_date` = '$issue_date'";
+        }
+        if(empty($query)){
+            $query= "AND `products`.`delete_bit`=0";
+        }
+
+        $data["all_doctype"]=$this->commons_model->all_record_delete_bit("doctype");
+        $data["all_customer"]=$this->commons_model->all_record('cust');
+
+        $data["all_cer"]=$this->certificate_model->search_certificate($query);
+        $data["document_type"]=$_GET['document_type'];
+        $data["user_id"]=$_GET['user'];
+        $data["issue_date"]=$_GET['issue_date'];
+      //  print_r($data["all_cer"]);
+        $this->load->view('manage_certificate',$data);
+    }
 
 		
 
@@ -195,7 +239,7 @@ class Certificate extends CI_Controller {
 
 			
 
-			$e_doc_no = $this->input->post('e_doc_no');
+		/*	$e_doc_no = $this->input->post('e_doc_no');
 
 			if(empty($e_doc_no)){
 
@@ -203,7 +247,7 @@ class Certificate extends CI_Controller {
 
 				
 
-			}
+			}*/
 
 			
 
@@ -286,9 +330,10 @@ class Certificate extends CI_Controller {
 
 			}else{
 
+
 			$certi_data=array(
 
-						"cert_code"=>$cert_code,
+						"cert_code"=>'1000',
 
 						"c_name"=>$c_name,
 
@@ -306,7 +351,7 @@ class Certificate extends CI_Controller {
 
 						//"c_location"=>$c_location,
 
-						"e_doc_no"=>$e_doc_no,
+						//"e_doc_no"=>$filenam,
 
 						"products_id"=>$products_id,
 
@@ -339,14 +384,36 @@ class Certificate extends CI_Controller {
 				
 				$update_cus_date=$this->certificate_model->update_cus_date($customer_id,$updated_date);
                 $result_user_id=$this->certificate_model->get_user_id($customer_id);
+                $upload_file_name= $_FILES['userfile']['name'];
+                if(!empty($upload_file_name)){
+                    $filenam = preg_replace('/[^a-zA-Z0-9_.]/', '', $upload_file_name);
+                    $final_name=time().$filenam;
+
+                    $config=  array(
+                        'file_name' => $final_name,
+                        'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/document/",
+                        // 'upload_url'      => base_url()."uploads/",
+                        'allowed_types' => "*",
+                        'max_size'        => "2048000000000",
+                    );
+
+                    $this->load->library('upload', $config);
+                    $this->upload->do_upload('userfile');
+                    $data_doc=array("name"=>"other","document_type_id"=>"0","file_name"=>$final_name,"certificate_id"=>$last_certificate_id,"document_type"=>"2");
+                    $last_doc_id=$this->commons_model->insert_record('document',$data_doc);
+                    $data_doc_asign= array("document_id"=>$last_doc_id, "certficate_id"=>$last_certificate_id, "user_id"=>$result_user_id);
+                     $this->commons_model->insert_record('document_assign',$data_doc_asign);
+                }
 
 
                 $return_data = array();
+                if($document){
                 foreach ($document as $value)
                 {
                     $return_data[] = array("document_id"=>$value, "certficate_id"=>$last_certificate_id, "user_id"=>$result_user_id);
                 }
                 $this->db->insert_batch('document_assign',$return_data);
+                }
 				/*$t_prod_data=array(
 
 							
@@ -590,8 +657,8 @@ class Certificate extends CI_Controller {
 
 			}
 		$identification_to = $this->input->post('identification_to');
-			
 
+            $document= $this->input->post('document');
 			
 
 			if(!empty($message)){
@@ -667,6 +734,36 @@ class Certificate extends CI_Controller {
 				
 				$updated_date=date('Y-m-d H:i:s');
 				$update_cus_date=$this->certificate_model->update_cus_date($customer_id,$updated_date);
+                $result_user_id=$this->certificate_model->get_user_id($customer_id);
+                $upload_file_name= $_FILES['userfile']['name'];
+                if(!empty($upload_file_name)){
+                    $filenam = preg_replace('/[^a-zA-Z0-9_.]/', '', $upload_file_name);
+                    $final_name=time().$filenam;
+                    $config=  array(
+                        'file_name' => $final_name,
+                        'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/document/",
+                        // 'upload_url'      => base_url()."uploads/",
+                        'allowed_types' => "*",
+                        'max_size'        => "2048000000000",
+                    );
+
+                    $this->load->library('upload', $config);
+                    $this->upload->do_upload('userfile');
+                    $data_doc=array("name"=>"other","document_type_id"=>"0","file_name"=>$final_name,"document_type"=>"2","certficate_id"=>$last_certificate_id);
+                    $last_doc_id=$this->commons_model->insert_record('document',$data_doc);
+                    $data_doc_asign= array("document_id"=>$last_doc_id, "certficate_id"=>$last_certificate_id, "user_id"=>$result_user_id);
+                    $this->commons_model->insert_record('document_assign',$data_doc_asign);
+                }
+                if($document){
+                    $return_data = array();
+                    foreach ($document as $value)
+                    {
+                        $return_data[] = array("document_id"=>$value, "certficate_id"=>$last_certificate_id, "user_id"=>$result_user_id);
+                    }
+                    $this->db->insert_batch('document_assign',$return_data);
+                }
+
+
 				/*$t_prod_data=array(
 
 							
@@ -694,7 +791,7 @@ class Certificate extends CI_Controller {
 			$data['single_data']=$this->commons_model->single_record('cust','cust_id',$data["certificate"]->customer_id);
 
 			$data['address_data']=$this->commons_model->single_record('cust_address','cust_id',$data["certificate"]->customer_id);
-
+			$data['result_certificate']  =$this->certificate_model->get_document($last_certificate_id);
 		
 		  $html=$this->load->view('pdf1',$data, true); 
 			$path=base_url()."pdf.css";
@@ -747,6 +844,7 @@ class Certificate extends CI_Controller {
 			$message="";
 
 			//$order_no = $this->input->post('order_no');
+            $document_id = $this->input->post('document_id');
 
 			$p_no = $this->input->post('p_no');
 
@@ -859,15 +957,15 @@ class Certificate extends CI_Controller {
 
 			}*/
 
-			$e_doc_no = $this->input->post('e_doc_no');
+            /*	$e_doc_no = $this->input->post('e_doc_no');
 
-		/*	if(empty($e_doc_no)){
+                if(empty($e_doc_no)){
 
-				$message.="<p>External Doc No vlaid field Required.</p>";
+                    $message.="<p>External Doc No vlaid field Required.</p>";
 
-				
 
-			}*/
+
+                }*/
 			
 			
 $d_d = $this->input->post('d_d');
@@ -914,7 +1012,6 @@ $d_d = $this->input->post('d_d');
 			$identification_to = $this->input->post('identification_to');
             $document = $this->input->post('document');
 
-			
 
 			if(!empty($message)){
 
@@ -968,15 +1065,46 @@ $d_d = $this->input->post('d_d');
 
 						);	
 
-				$last_certificate_id=$this->commons_model->update_record('certificate','certificate_id',$cer_id,$certi_data);
-                $last_certificate_id=$this->commons_model->delete_record_from_db('document_assign','certficate_id',$cer_id);
+				$result_id=$this->commons_model->update_record('certificate','certificate_id',$cer_id,$certi_data);
+                $result_2_id=$this->commons_model->delete_record_from_db('document_assign','certficate_id',$cer_id);
                 $result_user_id=$this->certificate_model->get_user_id($customer_id);
-                $return_data = array();
-                foreach ($document as $value)
-                {
-                    $return_data[] = array("document_id"=>$value, "certficate_id"=>$cer_id, "user_id"=>$result_user_id);
+                $upload_file_name= $_FILES['userfile']['name'];
+                if(!empty($upload_file_name)){
+
+                    $filenam = preg_replace('/[^a-zA-Z0-9_.]/', '', $upload_file_name);
+                    $final_name=time().$filenam;
+
+                    $config=  array(
+                        'file_name' => $final_name,
+                        'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/document/",
+                        // 'upload_url'      => base_url()."uploads/",
+                        'allowed_types' => "*",
+                        'max_size'        => "2048000000000",
+                    );
+
+                    $this->load->library('upload', $config);
+                    $this->upload->do_upload('userfile');
+                    $data_doc=array("name"=>"other","document_type_id"=>"0","file_name"=>$final_name,"document_type"=>"2","certificate_id"=>$cer_id);
+                    $last_doc_id=$this->commons_model->insert_record('document',$data_doc);
+
+                    $data_doc_asign_result= array("document_id"=>$last_doc_id, "certficate_id"=>$cer_id, "user_id"=>$result_user_id);
+
+                    $this->commons_model->insert_record('document_assign',$data_doc_asign_result);
+                }else if(!empty($document_id)){
+                    $data_doc_asign= array("document_id"=>$document_id, "certficate_id"=>$cer_id, "user_id"=>$result_user_id);
+                    $this->commons_model->insert_record('document_assign',$data_doc_asign);
+
                 }
-                $this->db->insert_batch('document_assign',$return_data);
+                if($document){
+
+
+                    $return_data = array();
+                    foreach ($document as $value)
+                    {
+                        $return_data[] = array("document_id"=>$value, "certficate_id"=>$cer_id, "user_id"=>$result_user_id);
+                    }
+                    $this->db->insert_batch('document_assign',$return_data);
+                }
 
 				if($cer_id){
 
@@ -1131,7 +1259,7 @@ $d_d = $this->input->post('d_d');
 			$data['single_data']=$this->commons_model->single_record('cust','cust_id',$data["certificate"]->customer_id);
 
 			$data['address_data']=$this->commons_model->single_record('cust_address','cust_id',$data["certificate"]->customer_id);
-	
+            $data['result_certificate']  =$this->certificate_model->get_document($certificate_id);
 	//$html=$this->load->view('pdf1',$data);
 			
 		  $html=$this->load->view('pdf1',$data, true); 
@@ -1195,6 +1323,8 @@ $d_d = $this->input->post('d_d');
 		 	$c_name = $this->input->post('c_name');
 
 			$customer_id = $this->input->post('customer_id');
+			 $document = $this->input->post('document');
+
 			//echo  $customer_id;exit;
 			
 			$user_id=$this->session->userdata('user_id');	
@@ -1273,8 +1403,17 @@ $d_d = $this->input->post('d_d');
 
 				$updated_date=date('Y-m-d H:i:s');
 
-				$result=$this->commons_model->insert_record('news_feed',$data_message);
+				$last_id=$this->commons_model->insert_record('news_feed',$data_message);
 				$update_cus_date=$this->certificate_model->update_cus_date($customer_id,$updated_date);
+				if($document){
+                    $return_data = array();
+                    foreach ($document as $value)
+                    {
+                        $return_data[] = array("document_id"=>$value,"customer_id"=>$customer_id,"news_feed_id"=>$last_id);
+                    }
+                    $this->db->insert_batch('assign_newsfeed_document',$return_data);
+                }
+
 
 				if($update_cus_date){
 

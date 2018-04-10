@@ -48,7 +48,7 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <div class="checkbox icheck">
             <label>
-              <a href="<?php echo base_url();?>forgotpassword">Forget Password</a>
+              <a href="<?php echo base_url();?>forgotpassword">Forgotten Password?</a>
             </label>
           </div>
       </div>

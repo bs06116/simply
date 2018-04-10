@@ -10,6 +10,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('dashboard/dashboard_model');
 		$this->load->model('task/task_model');	
 		$this->load->library('commons/commons_lib');
+        $this->load->model('document/document_model');
 		if(!$this->session->userdata('logged_in'))
 		{
 			redirect(base_url().'login');
@@ -28,6 +29,9 @@ class Dashboard extends CI_Controller {
 		$data["all_user_task"]=$this->dashboard_model->get_user_task();
 		$data["all_project"]=$this->commons_model->all_active_record('project');
 		$data["all_user"]=$this->task_model->all_user();
+        $data["all_document"]=$this->document_model->get_all_document();
+        $data["all_doctype"]=$this->commons_model->all_record_delete_bit('doctype');
+
 		$this->load->view('dashboard',$data);
 	}
 	public function change_password()

@@ -25,6 +25,7 @@ $config['project_path'] = 'project/';
 $config['task_path'] = 'task/';
 
 $config['document_path'] = 'document/';
+$config['doctype_path'] = 'doctype/';
 
 
 /*

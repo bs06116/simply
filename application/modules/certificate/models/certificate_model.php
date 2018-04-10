@@ -112,16 +112,32 @@ public function get_product_data($p_id){
 			return $this->db->affected_rows();		
 		}
 		public function check_document_attach($document_id,$cert_id){
-            $query = $this->db->query('SELECT * FROM  document_assign WHERE document_id="'.$document_id.'" AND 	certficate_id="'.$cert_id.'"' );
+
+            if($cert_id==0){
+                $query = $this->db->query('SELECT * FROM  document_assign WHERE document_id="'.$document_id.'"' );
+            }else{
+                $query = $this->db->query('SELECT * FROM  document_assign WHERE document_id="'.$document_id.'" AND 	certficate_id="'.$cert_id.'"' );
+            }
+
             return $query->result_array();
         }
     public function get_document($cert_id){
-        $query = $this->db->query('SELECT 	document.file_name FROM  document,document_assign WHERE document.id=document_assign.document_id AND document_assign.certficate_id="'.$cert_id.'"' );
+        $query = $this->db->query('SELECT 	document.file_name,document.name FROM  document,document_assign WHERE document.id=document_assign.document_id AND document_assign.certficate_id="'.$cert_id.'"' );
         return $query->result();
     }
     public function get_user_id($customer_id){
         $query = $this->db->query('SELECT 	users.userid FROM  cust,users WHERE cust.cust_id="'.$customer_id.'" AND cust.account=users.username' );
         return $query->row('userid');
+    }
+    public function search_certificate($query){
+        $query = $this->db->query("SELECT  certificate.*,products.* FROM `certificate`
+									INNER JOIN `products` ON (`certificate`.`products_id` = `products`.`products_id`) 
+									INNER JOIN `document_assign` ON (`certificate`.`certificate_id` = `document_assign`.`certficate_id`)
+									INNER JOIN `document` ON (`document_assign`.`document_id` = `document`.`id`)
+									
+									WHERE `certificate`.`delete_bit`=0  ".$query."  GROUP BY certificate.certificate_id");
+      // echo  $this->db->last_query();
+        return $query->result_array();
     }
 }
 

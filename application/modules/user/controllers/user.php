@@ -1233,7 +1233,7 @@ class User extends CI_Controller {
 
 			if(empty($message_n)){
 
-				$data=array("status"=>0,"message"=>"Refrence field is empty.");		
+				$data=array("status"=>0,"message"=>"Reference field is empty.");
 
 					echo json_encode($data);	
 
@@ -1306,7 +1306,12 @@ class User extends CI_Controller {
 		{	
 		//echo $customer_id;exit;
 			$data['user_data']=$this->user_model->get_single_new_feed($customer_id);
-			 $this->load->view('load_newsfeed',$data); 
+            //$data['assign_news_feed']=$this->user_model->get_attached_newsfeed($customer_id);
+
+         /*   print_r( $data['assign_news_feed']);
+            die;*/
+
+            $this->load->view('load_newsfeed',$data);
 					/*$u_data=$data['user_data'];
 					$data=array("status"=>1,"note"=>$u_data->note);		
 					echo json_encode($data);	
@@ -1322,9 +1327,6 @@ class User extends CI_Controller {
 
 			$data['user_data']=$this->user_model->get_single_new_feed($customer_id);
 
-		
-
-			
 
 			
 

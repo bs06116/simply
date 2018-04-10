@@ -213,7 +213,16 @@ class User_model extends CI_Model
 
 		}
 
-				
+
+
+		public function get_attached_newsfeed($news_feed_id){
+
+            $query = $this->db->query("SELECT * FROM  document,assign_newsfeed_document WHERE document.id=assign_newsfeed_document.document_id AND assign_newsfeed_document.news_feed_id='$news_feed_id'");
+
+
+
+            return $query->result();
+        }
 
 		
 

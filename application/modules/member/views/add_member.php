@@ -72,7 +72,11 @@ $this->load->view('commons/header');
                    <div class="col-lg-6">
                    <div class="form-group">
                           <label for="section">Designation</label>
-                          <input required type="text" value="<?php echo set_value('designation'); ?>"  name="designation" id="designation" class="form-control" placeholder="Designation">
+                       <select name="designation" class="form-control">
+                           <option value="1">Admin</option>
+                           <option value="2">Customer</option>
+                       </select>
+                         <!-- <input required type="text" value="<?php /*echo set_value('designation'); */?>"  name="designation" id="designation" class="form-control" placeholder="Designation">-->
                       
                        <div class="text-red"><?php echo form_error('designation'); ?></div>
                         </div>

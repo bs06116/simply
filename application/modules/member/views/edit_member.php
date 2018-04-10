@@ -59,7 +59,11 @@ $this->load->view('commons/header');
                         </div>
                          <div class="form-group">
                           <label for="section">Designation</label>
-                         <input type="text" value="<?php  if(isset($original_form_values) && $original_form_values == 1){echo $user_data->designation; }?>"  name="designation" id="designation" class="form-control" placeholder="Designation">
+                             <select name="designation" class="form-control">
+                                 <option <?php  if($user_data->designation == 1){?> selected <?php }?> value="1">Admin</option>
+                                 <option <?php  if($user_data->designation == 2){?> selected <?php }?> value="2">Customer</option>
+                             </select>
+<!--                         <input type="text" value="--><?php // if(isset($original_form_values) && $original_form_values == 1){echo $user_data->designation; }?><!--"  name="designation" id="designation" class="form-control" placeholder="Designation">-->
                        <div class="text-red"><?php echo form_error('designation'); ?></div>
                         </div>
 

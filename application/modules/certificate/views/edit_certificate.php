@@ -101,31 +101,15 @@ $this->load->view('commons/header');
                     </div>
 
                 </div>
-            <!--<div class="col-lg-3">
 
-                	<div class="form-group">
 
-                    	<label>Attached Document</label>
-
-                        <input type="text" name="e_doc_no"  value="<?php /*echo $certificate->e_doc_no;*/?>" class="form-control" >
-
-                    </div>
-
-                </div>-->
                 <div class="col-lg-3">
-
                     <div class="form-group">
-                        <label>Attached Document </label><br />
+                        <label>Attached Document </label><br /><br />
 
-                        <select class="form-group" multiple name="document[]" id="test"  >
 
-                            <?php foreach($all_document as $ad):
-                                $result_data=$this->certificate_model->check_document_attach($ad['id'],$certificate->certificate_id);
-
-                                ?>
-                                <option <?php if($result_data){?> selected <?php }?> value="<?php echo $ad['id']?>"><?php echo $ad['name']?></option>
-                            <?php endforeach;?>
-                        </select>
+                        <a href="#" data-toggle="modal" data-target="#upload-files" class="button"><i
+                                    class="fa fa-plus"></i> Upload new Files</a>
                     </div>
 
 
@@ -313,6 +297,8 @@ $this->load->view('commons/header');
             <input type="hidden" value="<?php echo $certificate->certificate_id;?>" name="cer_id" id="cer_id" />
 
               <input type="hidden"  value="<?php echo $certificate->customer_id;?>"  name="customer_id" id="customer_id" />
+              <input type="hidden"  value="<?php echo $single_document_id;?>"  name="document_id"  />
+
 
             <input type="hidden" value="<?php //echo $cert_code?>" name="cert_code" />
 
@@ -379,7 +365,72 @@ $this->load->view('commons/header');
             </div>
 
           </div>
-          
+     <div class="modal" id="upload-files" tabindex="-1" role="dialog" aria-labelledby="upload-avatar-title"
+          aria-hidden="true">
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                     <h4 class="modal-title" id="upload-avatar-title">Upload new Files</h4>
+                 </div>
+                 <div class="modal-body">
+
+                     <ul class="nav nav-tabs">
+                         <li class="active"><a data-toggle="tab" href="#new_upload">Upload New File</a></li>
+                         <li><a data-toggle="tab" href="#attached_files">Choose from Attached Files</a></li>
+                     </ul>
+
+                     <div class="tab-content">
+                         <div id="new_upload" class="tab-pane fade in active">
+                             <p>Please choose a file to upload. JPG, PNG, GIF only.</p>
+
+                             <div class="form-group">
+                                 <label for="file">File</label>
+                                 <input type="file" name="userfile" id="file">
+                                 <p class="help-block">Files up to 5Mb only.</p>
+                             </div>
+
+                         </div>
+                         <div id="attached_files" class="tab-pane fade">
+
+                             <div class="form-group">
+                                 <label>Attached Files </label><select class="drpoption">
+                                     <option value="0">All</option>
+                                     <?php foreach ($all_doctype as $adt): ?>
+                                         <option value="<?php echo $adt['id'] ?>"><?php echo $adt['name'] ?></option>
+                                     <?php endforeach; ?>
+                                 </select><br/>
+
+                                 <div class="checkbox">
+                                     <div id="doct_id">
+
+                                     <?php foreach ($all_document as $ad):
+                                         $result_data=$this->certificate_model->check_document_attach($ad['id'],$certificate->certificate_id);
+
+                                     ?>
+                                         <label><input <?php if($result_data){?> checked <?php }?>  type="checkbox" name="document[]"
+                                                       value="<?php echo $ad['id'] ?>"><?php echo $ad['name'] ?>
+                                         </label>
+                                     <?php endforeach; ?>
+                                     </div>
+                                 </div>
+
+                             </div>
+
+
+                         </div>
+                     </div>
+                     <div class="modal-footer">
+                         <div class="pull-right">
+                             <button type="button" class="btn btn-danger" id="btnUploadCancel">Save</button>
+                             <!--<button type="button" class="btn btn-success">Upload</button>-->
+                         </div>
+                     </div>
+                     <div class="clearfix"></div>
+                 </div>
+             </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+     </div>
           
   <!--<img class="loading_gif" src="<?php echo base_url()?>img/loading.gif" />-->
   
@@ -592,7 +643,7 @@ $(function() {
 <script>
 
 $("#submit_certificate").click(function(){
-
+    var formData = new FormData($('#validation_form')[0]);
 	//alert("adf");
 
 $.ajax({
@@ -601,7 +652,9 @@ $.ajax({
 
         url:'<?php echo base_url()?><?php echo $this->config->item('certificate_path'); ?>'+"update_certificate",
 
-        data:$("#validation_form").serialize(),
+        data:formData,
+        processData: false,  //Add this
+        contentType: false,
 
         success: function(response){
 
@@ -644,4 +697,27 @@ return false;
 
     });
 
+</script>
+<script>
+    $('#btnUploadCancel').click(function () {
+        $('#upload-files').modal('toggle');
+    });
+</script>
+<script>
+    $('.drpoption').change(function() {
+        $("#doct_id").remove();
+var cert_id=$("#cer_id").val();
+
+        var item=$(this);
+        document_type_id=item.val();
+        $.ajax({
+            type: "POST",
+            url: '<?php echo base_url()?><?php echo $this->config->item('document_path'); ?>' + "filter_document/" + document_type_id+"/"+cert_id,
+            success: function (response) {
+                $(".checkbox").append(response);
+
+            }
+        });
+
+    });
 </script>

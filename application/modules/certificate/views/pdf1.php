@@ -58,7 +58,15 @@
 							?></td>
 						</tr>
 						<tr>
-							<td><b>Attached Documents: </b> <?php echo strtoupper($certificate->e_doc_no);  ?> </td>
+							<td><b>Attached Documents: </b>  <?php
+
+                                foreach($result_certificate as $rc):?>
+                                    <a target="_blank" href="<?php echo base_url(); ?>/uploads/document/<?php echo   $rc->file_name;?>" class="btn btn-primary btn-icon" title="Download Document"><?php echo  $rc->name?></a> &nbsp; &nbsp;
+                                    <?php
+
+                                endforeach;
+
+                                ?> </td>
 						</tr>
 						<tr>
                          			

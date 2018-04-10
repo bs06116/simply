@@ -338,6 +338,20 @@ $image_name=$result->image_name;
 
         </li>
           <? }?>
+          <?php  if($this->session->userdata('user_type')==1){?>
+
+              <li class="<?php if (preg_match("/manage_doctype/", $url)) { ?> active <?php } ?>">
+
+                  <a href="<?php echo base_url(); ?><?php echo $this->config->item('doctype_path'); ?>manage_doctype">
+
+                      <i class="fa fa-files-o"></i>
+
+                      <span>Document Type</span>
+
+                  </a>
+
+              </li>
+          <? }?>
           <?php  if($this->session->userdata('user_type')==1 or $this->session->userdata('user_type')==2){?>
 
         <li class="<?php if (preg_match("/manage_document/", $url)) { ?> active <?php } ?>">
@@ -346,7 +360,7 @@ $image_name=$result->image_name;
 
             <i class="fa fa-files-o"></i>
 
-            <span>Document</span>
+            <span>Documents</span>
 
           </a>
 

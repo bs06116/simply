@@ -74,20 +74,22 @@ $this->load->view('commons/header');
                         </tr>
 
                     </thead>
-
+        <?php if($this->session->userdata('user_type')==1){  ?>
                     <tbody>
 
                     	
 				
                         <?php 
 
-                        $increment=0; foreach($all_document as $ad): $increment++;?>
+                        $increment=0; foreach($all_document as $ad): $increment++;
+
+                        ?>
 
 
                         <tr>
                         <td><?php echo $increment;?></td>
 							<td><?php echo $ad['name']?></td>
-                            <td><?php echo $ad['type']?></td>
+                            <td><?php echo $ad['doctypename']?></td>
 
 
 
@@ -99,9 +101,9 @@ $this->load->view('commons/header');
 
                             	<!--<a href="#" class="btn btn-default btn-icon" data-toggle="modal" data-target="#view_modal"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
 
-    <?php if($this->session->userdata('user_type')==1){ ?>
+
                                 <a  onclick="return confirm('Are you sure want to delete this record.')" href="<?php echo base_url(); ?><?php echo $this->config->item('document_path'); ?>delete_document/<?php echo $ad['id']?>"  class="btn btn-danger btn-icon" title="Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-<!-- pri --> <?php } ?>
+
                                 <a target="_blank" href="<?php echo base_url(); ?>uploads/document/<?php echo $ad['file_name']?>" class="btn btn-primary btn-icon" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
 
                             </td>
@@ -113,7 +115,46 @@ $this->load->view('commons/header');
                
                     </tbody>
 
-                
+                <?php }?>
+<?php if($this->session->userdata('user_type')==2){  ?>
+    <tbody>
+
+
+
+    <?php
+
+    $increment=0; foreach($all_document as $ad): $increment++;
+        $result=$this->commons_model->single_record('document','id',$ad['document_type_id']);
+        ?>
+
+
+        <tr>
+            <td><?php echo $increment;?></td>
+            <td><?php echo $ad['name']?></td>
+            <td><?php if($result){echo $result->name;}else{ echo "-";}?></td>
+
+
+
+
+
+
+
+            <td>
+
+                <!--<a href="#" class="btn btn-default btn-icon" data-toggle="modal" data-target="#view_modal"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
+
+
+                <a target="_blank" href="<?php echo base_url(); ?>uploads/document/<?php echo $ad['file_name']?>" class="btn btn-primary btn-icon" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+
+            </td>
+
+        </tr>
+
+    <?php endforeach;?>
+
+
+    </tbody>
+    <?php }?>
 
                 </table>
 

@@ -1227,3 +1227,15 @@ a:hover, a:active, a:focus{
 .skin-red .main-header .logo:hover{
 	color:#fff;
 }
+#upload-files {
+	z-index: 1080 !important;
+}
+.internal_popup a:hover, .internal_popup a:focus, #upload-files .nav-tabs li a:hover,  #upload-files .nav-tabs li a:focus{
+ color: #ffd300 !important;   
+}
+#upload-files .tab-content > div{
+    padding: 15px;
+}
+#upload-files .tab-content {
+    min-height: 180px;
+}
